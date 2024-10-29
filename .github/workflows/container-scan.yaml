@@ -31,6 +31,7 @@ jobs:
         with:
           image: target-image:latest
           report-format: "sarif"
+          report-name: "dockle-results.sarif"
           failure-threshold: "FATAL"
           exit-code: 0
 
