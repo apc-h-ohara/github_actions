@@ -31,7 +31,6 @@ jobs:
         with:
           image: target-image:latest
           report-format: "sarif"
-          output-file: dockle-results.sarif
           failure-threshold: "FATAL"
           exit-code: 0
 
@@ -39,3 +38,4 @@ jobs:
         uses: github/codeql-action/upload-sarif@v2
         with:
           sarif_file: dockle-results.sarif
+          token: ${{ secrets.GITHUB_TOKEN }}
