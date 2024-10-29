@@ -22,14 +22,14 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
-          tags: target-image:latest
+          tags: ${{ github.sha }}
           push: false
           load: true
 
       - name: Scan the Docker image with Dockle
         uses: erzz/dockle-action@main
         with:
-          image: target-image:latest
+          image: ${{ github.sha }}
           report-format: "sarif"
           failure-threshold: "FATAL"
           exit-code: 0
