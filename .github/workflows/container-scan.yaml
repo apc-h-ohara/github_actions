@@ -1,0 +1,37 @@
+name: Container Security Scan
+
+on:
+  workflow_dispatch
+
+permissions:
+  contents: read
+  security-events: write
+
+jobs:
+  build-and-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: ./Dockerfile
+          push: false
+          load: true
+
+      - name: Scan the Docker image with Dockle
+        uses: erzz/dockle-action@main
+        with:
+          report-format: "sarif"
+          failure-threshold: fatal
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v3
+        with:
+          sarif_file: dockle-report.sarif
