@@ -34,6 +34,9 @@ jobs:
           failure-threshold: "FATAL"
           exit-code: 0
 
+      - name: tree
+        run: tree
+
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
         with:
