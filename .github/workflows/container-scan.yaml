@@ -22,14 +22,21 @@ jobs:
         with:
           context: .
           file: ./Dockerfile
+          tags: target-image:latest
           push: false
           load: true
 
       - name: Scan the Docker image with Dockle
         uses: erzz/dockle-action@main
         with:
+          image: target-image:latest
           report-format: "sarif"
           failure-threshold: fatal
+
+      - name: Upload SARIF file
+        uses: github/codeql-action/upload-sarif@v2
+        with:
+          sarif_file: dockle-results.sarif          
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
