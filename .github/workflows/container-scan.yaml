@@ -32,7 +32,6 @@ jobs:
           image: ${{ github.sha }}
           report-format: "sarif"
           failure-threshold: "FATAL"
-          exit-code: 0
 
       - name: Upload SARIF file
         uses: github/codeql-action/upload-sarif@v3
