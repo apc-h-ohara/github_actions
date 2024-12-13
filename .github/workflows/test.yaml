@@ -1,0 +1,17 @@
+name: Secrets vs Variables Test
+
+on: 
+  workflow_dispatch
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test Case 1 - Using secrets syntax
+        run: echo "APP_ENV from secrets: ${{ secrets.APP_ENV }}"
+
+      - name: Test Case 2 - Using variables syntax
+        run: echo "APP_ENV from variables: ${{ vars.APP_ENV }}"
+
+      - name: Test Case 3 - Direct reference
+        run: echo "APP_ENV direct: $APP_ENV"
